@@ -1,4 +1,9 @@
+const webpack = require('webpack');
 const path = require('path');
+
+const appName = 'vue-todo';
+const entryPoint = './client/'
+
 
 module.exports = {
   devtool: 'source-map',
@@ -15,13 +20,22 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /.jsx?$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
           presets: ['es2015'],
         },
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
     ],
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  }
 };
