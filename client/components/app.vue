@@ -26,13 +26,9 @@
         todos: [
           {
             copy: 'Grab a burger',
-            completed: false,
-            isEditing: false
           },
           {
             copy: 'Frolic in forest',
-            completed: false,
-            isEditing: false
           }
         ]
       }
@@ -43,7 +39,7 @@
       TodosPanel
     },
     methods: {
-      addTodo() {
+      addTodo(e) {
         const todoText = this.todoText.trim();
         if (todoText) {
           this.todos.push({
@@ -51,6 +47,7 @@
             completed: false,
             isEditing: false
           });
+        this.todoText = '';
         }
       }
     }

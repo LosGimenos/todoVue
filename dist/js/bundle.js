@@ -10485,7 +10485,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\n* {\n  margin: 0 0;\n}\n.main-content__wrapper {\n  display: flex;\n  justify-content: space-around;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/app.vue?0b8837d6"],"names":[],"mappings":";AA4DA;EACA,YAAA;CACA;AACA;EACA,cAAA;EACA,8BAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div>\n    <title-bar></title-bar>\n    <div class=\"main-content__wrapper\">\n      <input-panel\n        v-bind:todoText=\"todoText\"\n        v-on:todoText=\"value => todoText = value\"\n        v-bind:addTodo=\"addTodo\">\n      </input-panel>\n      <todos-panel\n        v-bind:todos=\"todos\">\n      </todos-panel>\n    </div>\n  </div>\n</template>\n\n<script>\n  import TitleBar from './titleBar.vue';\n  import InputPanel from './inputPanel.vue';\n  import TodosPanel from './todosPanel.vue';\n\n  export default {\n    data () {\n      return {\n        todoText: '',\n        todos: [\n          {\n            copy: 'Grab a burger',\n            completed: false,\n            isEditing: false\n          },\n          {\n            copy: 'Frolic in forest',\n            completed: false,\n            isEditing: false\n          }\n        ]\n      }\n    },\n    components: {\n      TitleBar,\n      InputPanel,\n      TodosPanel\n    },\n    methods: {\n      addTodo() {\n        const todoText = this.todoText.trim();\n        if (todoText) {\n          this.todos.push({\n            copy: todoText,\n            completed: false,\n            isEditing: false\n          });\n        }\n      }\n    }\n  }\n</script>\n\n<style>\n  * {\n    margin: 0 0;\n  }\n  .main-content__wrapper {\n    display: flex;\n    justify-content: space-around;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n* {\n  margin: 0 0;\n}\n.main-content__wrapper {\n  display: flex;\n  justify-content: space-around;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/app.vue?a915d522"],"names":[],"mappings":";AAyDA;EACA,YAAA;CACA;AACA;EACA,cAAA;EACA,8BAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div>\n    <title-bar></title-bar>\n    <div class=\"main-content__wrapper\">\n      <input-panel\n        v-bind:todoText=\"todoText\"\n        v-on:todoText=\"value => todoText = value\"\n        v-bind:addTodo=\"addTodo\">\n      </input-panel>\n      <todos-panel\n        v-bind:todos=\"todos\">\n      </todos-panel>\n    </div>\n  </div>\n</template>\n\n<script>\n  import TitleBar from './titleBar.vue';\n  import InputPanel from './inputPanel.vue';\n  import TodosPanel from './todosPanel.vue';\n\n  export default {\n    data () {\n      return {\n        todoText: '',\n        todos: [\n          {\n            copy: 'Grab a burger',\n          },\n          {\n            copy: 'Frolic in forest',\n          }\n        ]\n      }\n    },\n    components: {\n      TitleBar,\n      InputPanel,\n      TodosPanel\n    },\n    methods: {\n      addTodo(e) {\n        const todoText = this.todoText.trim();\n        if (todoText) {\n          this.todos.push({\n            copy: todoText,\n            completed: false,\n            isEditing: false\n          });\n        this.todoText = '';\n        }\n      }\n    }\n  }\n</script>\n\n<style>\n  * {\n    margin: 0 0;\n  }\n  .main-content__wrapper {\n    display: flex;\n    justify-content: space-around;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -10957,13 +10957,9 @@ module.exports = function normalizeComponent (
     return {
       todoText: '',
       todos: [{
-        copy: 'Grab a burger',
-        completed: false,
-        isEditing: false
+        copy: 'Grab a burger'
       }, {
-        copy: 'Frolic in forest',
-        completed: false,
-        isEditing: false
+        copy: 'Frolic in forest'
       }]
     };
   },
@@ -10973,7 +10969,7 @@ module.exports = function normalizeComponent (
     TodosPanel: __WEBPACK_IMPORTED_MODULE_2__todosPanel_vue__["a" /* default */]
   },
   methods: {
-    addTodo() {
+    addTodo(e) {
       const todoText = this.todoText.trim();
       if (todoText) {
         this.todos.push({
@@ -10981,6 +10977,7 @@ module.exports = function normalizeComponent (
           completed: false,
           isEditing: false
         });
+        this.todoText = '';
       }
     }
   }
@@ -11231,12 +11228,19 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data() {
-    return {};
+    return {
+      inputText: this.todoText
+    };
   },
   props: ['addTodo', 'todoText'],
   methods: {
     updateValue() {
       this.$emit('todoText', this.$refs.input.value);
+    },
+    submitHandler(e) {
+      e.preventDefault();
+      this.addTodo();
+      this.inputText = '';
     }
   }
 });
@@ -11330,7 +11334,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #000;\n  width: 40%;\n  height: 10em;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputPanel.vue?1d094499"],"names":[],"mappings":";AAgCA;EACA,cAAA;EACA,uBAAA;EACA,wBAAA;EACA,oBAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"inputPanel.vue","sourcesContent":["<template>\n  <div class=\"input-panel\">\n    <h2>Enter the task!</h2>\n    <input-bar\n      v-bind:todoText=\"panelTodoText\"\n      v-on:todoText=\"value => updateValue(value)\"\n      v-bind:addTodo=\"addTodo\">\n    </input-bar>\n  </div>\n</template>\n\n<script>\n  import InputBar from './inputBar.vue';\n\n  export default {\n    data () {\n      return {\n        panelTodoText: this.todoText\n      }\n    },\n    components: { InputBar },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue(value) {\n        this.panelTodoText = value\n        this.$emit('todoText', this.panelTodoText);\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  .input-panel {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid #000;\n    width: 40%;\n    height: 10em;\n  }\n</style>\n\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #000;\n  width: 40%;\n  height: 10em;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputPanel.vue?6a1d4b53"],"names":[],"mappings":";AAgCA;EACA,cAAA;EACA,uBAAA;EACA,wBAAA;EACA,oBAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"inputPanel.vue","sourcesContent":["<template>\n  <div class=\"input-panel\">\n    <h2>Enter the task!</h2>\n    <input-bar\n      v-bind:todoText=\"todoText\"\n      v-on:todoText=\"value => updateValue(value)\"\n      v-bind:addTodo=\"addTodo\">\n    </input-bar>\n  </div>\n</template>\n\n<script>\n  import InputBar from './inputBar.vue';\n\n  export default {\n    data () {\n      return {\n        panelTodoText: this.todoText\n      }\n    },\n    components: { InputBar },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue(value) {\n        this.panelTodoText = value\n        this.$emit('todoText', this.panelTodoText);\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  .input-panel {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid #000;\n    width: 40%;\n    height: 10em;\n  }\n</style>\n\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11381,7 +11385,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "input-panel"
   }, [_c('h2', [_vm._v("Enter the task!")]), _vm._v(" "), _c('input-bar', {
     attrs: {
-      "todoText": _vm.panelTodoText,
+      "todoText": _vm.todoText,
       "addTodo": _vm.addTodo
     },
     on: {
@@ -11435,7 +11439,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2em;\n  font-size: 1.25em;\n  margin-top: 2%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputBar.vue?3f8807ea"],"names":[],"mappings":";AAwBA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;CACA","file":"inputBar.vue","sourcesContent":["<template>\n  <input\n    ref=\"input\"\n    v-bind:todoText=\"todoText\"\n    @input=\"updateValue\"\n    v-on:keyup.enter=\"addTodo\"\n    placeholder=\"What do you need to do?\" />\n</template>\n\n<script>\n  export default {\n    data () {\n      return {}\n    },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue() {\n        this.$emit('todoText', this.$refs.input.value)\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  input {\n    width: 60%;\n    height: 2em;\n    font-size: 1.25em;\n    margin-top: 2%;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2em;\n  font-size: 1.25em;\n  margin-top: 2%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputBar.vue?30fa45c2"],"names":[],"mappings":";AA+BA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;CACA","file":"inputBar.vue","sourcesContent":["<template>\n  <input\n    ref=\"input\"\n    v-model=\"inputText\"\n    @input=\"updateValue\"\n    v-on:keyup.enter=\"submitHandler\"\n    placeholder=\"What do you need to do?\" />\n</template>\n\n<script>\n  export default {\n    data () {\n      return {\n        inputText: this.todoText\n      }\n    },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue() {\n        this.$emit('todoText', this.$refs.input.value)\n      },\n      submitHandler(e) {\n        e.preventDefault();\n        this.addTodo();\n        this.inputText = '';\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  input {\n    width: 60%;\n    height: 2em;\n    font-size: 1.25em;\n    margin-top: 2%;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11447,16 +11451,27 @@ exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2e
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputText),
+      expression: "inputText"
+    }],
     ref: "input",
     attrs: {
-      "todoText": _vm.todoText,
       "placeholder": "What do you need to do?"
     },
+    domProps: {
+      "value": (_vm.inputText)
+    },
     on: {
-      "input": _vm.updateValue,
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputText = $event.target.value
+      }, _vm.updateValue],
       "keyup": function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.addTodo($event)
+        _vm.submitHandler($event)
       }
     }
   })
@@ -11560,7 +11575,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\n.todos-panel[data-v-006d55c9] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: flex-start;\n  border: 1px solid #000;\n  width: 50%;\n  height: 80vh;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosPanel.vue?09a614de"],"names":[],"mappings":";AAsBA;EACA,cAAA;EACA,uBAAA;EACA,oBAAA;EACA,4BAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"todosPanel.vue","sourcesContent":["<template>\n  <div class=\"todos-panel\">\n    <h2>Your Tasks!</h2>\n    <todos-list\n      v-bind:todos=\"todos\">\n    </todos-list>\n  </div>\n</template>\n\n<script>\n  import TodosList from './todosList.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodosList },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  .todos-panel {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-start;\n    border: 1px solid #000;\n    width: 50%;\n    height: 80vh;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.todos-panel[data-v-006d55c9] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: flex-start;\n  border: 1px solid #000;\n  width: 50%;\n  height: 80vh;\n  overflow-y: auto;\n}\n.todos-panel h2[data-v-006d55c9] {\n  position: fixed;\n  text-align: center;\n  background-color: #fff;\n  width: 45%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosPanel.vue?6e224384"],"names":[],"mappings":";AAsBA;EACA,cAAA;EACA,uBAAA;EACA,oBAAA;EACA,4BAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;EACA,iBAAA;CACA;AAEA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;CACA","file":"todosPanel.vue","sourcesContent":["<template>\n  <div class=\"todos-panel\">\n    <h2>Your Tasks!</h2>\n    <todos-list\n      v-bind:todos=\"todos\">\n    </todos-list>\n  </div>\n</template>\n\n<script>\n  import TodosList from './todosList.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodosList },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  .todos-panel {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-start;\n    border: 1px solid #000;\n    width: 50%;\n    height: 80vh;\n    overflow-y: auto;\n  }\n\n  .todos-panel h2 {\n    position: fixed;\n    text-align: center;\n    background-color: #fff;\n    width: 45%;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11704,7 +11719,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\nul[data-v-f6e3e12e] {\n  list-style: none;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosList.vue?4b179996"],"names":[],"mappings":";AAsBA;EACA,iBAAA;CACA","file":"todosList.vue","sourcesContent":["<template>\n  <ul>\n    <todo-item\n      v-for=\"todo in todos\"\n      v-bind:todo=\"todo\">\n    </todo-item>\n  </ul>\n</template>\n\n<script>\n  import TodoItem from './todoItem.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodoItem },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  ul {\n    list-style: none;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\nul[data-v-f6e3e12e] {\n  margin-top: 5%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 90%;\n  min-height: min-content;\n  list-style: none;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosList.vue?78a1ceb0"],"names":[],"mappings":";AAsBA;EACA,eAAA;EACA,cAAA;EACA,uBAAA;EACA,wBAAA;EACA,oBAAA;EACA,WAAA;EACA,wBAAA;EACA,iBAAA;CACA","file":"todosList.vue","sourcesContent":["<template>\n  <ul>\n    <todo-item\n      v-for=\"todo in todos\"\n      v-bind:todo=\"todo\">\n    </todo-item>\n  </ul>\n</template>\n\n<script>\n  import TodoItem from './todoItem.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodoItem },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  ul {\n    margin-top: 5%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    width: 90%;\n    min-height: min-content;\n    list-style: none;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11848,7 +11863,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\nli[data-v-39199aaa] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 1px solid #000;\n  width: 20em;\n  height: 2em;\n  margin-bottom: 2%;\n  padding: 0 1%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todoItem.vue?2a82d9d2"],"names":[],"mappings":";AAoBA;EACA,cAAA;EACA,+BAAA;EACA,oBAAA;EACA,uBAAA;EACA,YAAA;EACA,YAAA;EACA,kBAAA;EACA,cAAA;CACA","file":"todoItem.vue","sourcesContent":["<template>\n  <li>\n    <p>{{ todo.copy }}</p>\n    <input\n      type=\"checkbox\"\n      v-model=\"todo.completed\"\n      />\n  </li>\n</template>\n\n<script>\n  export default {\n    data () {\n      return {}\n    },\n    props: ['todo']\n  }\n</script>\n\n<style scoped>\n  li {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: 1px solid #000;\n    width: 20em;\n    height: 2em;\n    margin-bottom: 2%;\n    padding: 0 1%;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\nli[data-v-39199aaa] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 1px solid #000;\n  width: 20em;\n  min-height: 2em;\n  margin-bottom: 2%;\n  padding: 0 1%;\n}\n.completed[data-v-39199aaa] {\nbackground-color: #EC644B;\ntext-decoration: line-through;\n}\nli input[data-v-39199aaa]:focus {\n  outline: 0;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todoItem.vue?5baf1576"],"names":[],"mappings":";AAwCA;EACA,cAAA;EACA,+BAAA;EACA,oBAAA;EACA,uBAAA;EACA,YAAA;EACA,gBAAA;EACA,kBAAA;EACA,cAAA;CACA;AAEA;AACA,0BAAA;AACA,8BAAA;CACA;AAEA;EACA,WAAA;CACA","file":"todoItem.vue","sourcesContent":["<template>\n  <li v-bind:class=\"{completed: isCompleted}\">\n    <p\n      v-on:click=\"clickHandler\"\n      v-show=\"!isEditing\">\n      {{ todo.copy }}\n    </p>\n    <input\n      v-show=\"isEditing\"\n      v-model=\"todo.copy\"\n      v-on:keyup.enter=\"setValue\"\n    />\n    <input\n      type=\"checkbox\"\n      v-model=\"isCompleted\"\n    />\n  </li>\n</template>\n\n<script>\n  export default {\n    data () {\n      return {\n        isEditing: false,\n        isCompleted: false,\n      }\n    },\n    props: ['todo'],\n    methods: {\n      clickHandler() {\n        this.isEditing = true;\n      },\n      setValue() {\n        this.isEditing = false;\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  li {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: 1px solid #000;\n    width: 20em;\n    min-height: 2em;\n    margin-bottom: 2%;\n    padding: 0 1%;\n  }\n\n  .completed {\n  background-color: #EC644B;\n  text-decoration: line-through;\n  }\n\n  li input:focus {\n    outline: 0;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11868,12 +11883,32 @@ exports.push([module.i, "\nli[data-v-39199aaa] {\n  display: flex;\n  justify-co
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data() {
-    return {};
+    return {
+      isEditing: false,
+      isCompleted: false
+    };
   },
-  props: ['todo']
+  props: ['todo'],
+  methods: {
+    clickHandler() {
+      this.isEditing = true;
+    },
+    setValue() {
+      this.isEditing = false;
+    }
+  }
 });
 
 /***/ }),
@@ -11882,34 +11917,73 @@ exports.push([module.i, "\nli[data-v-39199aaa] {\n  display: flex;\n  justify-co
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('p', [_vm._v(_vm._s(_vm.todo.copy))]), _vm._v(" "), _c('input', {
+  return _c('li', {
+    class: {
+      completed: _vm.isCompleted
+    }
+  }, [_c('p', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.isEditing),
+      expression: "!isEditing"
+    }],
+    on: {
+      "click": _vm.clickHandler
+    }
+  }, [_vm._v("\n    " + _vm._s(_vm.todo.copy) + "\n  ")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isEditing),
+      expression: "isEditing"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.todo.copy),
+      expression: "todo.copy"
+    }],
+    domProps: {
+      "value": (_vm.todo.copy)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.setValue($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.todo.copy = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.todo.completed),
-      expression: "todo.completed"
+      value: (_vm.isCompleted),
+      expression: "isCompleted"
     }],
     attrs: {
       "type": "checkbox"
     },
     domProps: {
-      "checked": Array.isArray(_vm.todo.completed) ? _vm._i(_vm.todo.completed, null) > -1 : (_vm.todo.completed)
+      "checked": Array.isArray(_vm.isCompleted) ? _vm._i(_vm.isCompleted, null) > -1 : (_vm.isCompleted)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.todo.completed,
+        var $$a = _vm.isCompleted,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = null,
             $$i = _vm._i($$a, $$v);
           if ($$el.checked) {
-            $$i < 0 && (_vm.todo.completed = $$a.concat($$v))
+            $$i < 0 && (_vm.isCompleted = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.todo.completed = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.isCompleted = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.todo.completed = $$c
+          _vm.isCompleted = $$c
         }
       }
     }

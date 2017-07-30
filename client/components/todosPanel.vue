@@ -28,5 +28,13 @@
     border: 1px solid #000;
     width: 50%;
     height: 80vh;
+    overflow-y: auto;
+  }
+
+  .todos-panel h2 {
+    position: fixed;
+    text-align: center;
+    background-color: #fff;
+    width: 45%;
   }
 </style>

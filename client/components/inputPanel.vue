@@ -2,7 +2,7 @@
   <div class="input-panel">
     <h2>Enter the task!</h2>
     <input-bar
-      v-bind:todoText="panelTodoText"
+      v-bind:todoText="todoText"
       v-on:todoText="value => updateValue(value)"
       v-bind:addTodo="addTodo">
     </input-bar>

@@ -1,21 +1,28 @@
 <template>
   <input
     ref="input"
-    v-bind:todoText="todoText"
+    v-model="inputText"
     @input="updateValue"
-    v-on:keyup.enter="addTodo"
+    v-on:keyup.enter="submitHandler"
     placeholder="What do you need to do?" />
 </template>
 
 <script>
   export default {
     data () {
-      return {}
+      return {
+        inputText: this.todoText
+      }
     },
     props: ['addTodo', 'todoText'],
     methods: {
       updateValue() {
         this.$emit('todoText', this.$refs.input.value)
+      },
+      submitHandler(e) {
+        e.preventDefault();
+        this.addTodo();
+        this.inputText = '';
       }
     }
   }
