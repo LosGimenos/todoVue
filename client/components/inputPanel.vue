@@ -1,7 +1,11 @@
 <template>
   <div class="input-panel">
     <h2>Enter the task!</h2>
-    <input-bar></input-bar>
+    <input-bar
+      v-bind:todoText="panelTodoText"
+      v-on:todoText="value => updateValue(value)"
+      v-bind:addTodo="addTodo">
+    </input-bar>
   </div>
 </template>
 
@@ -10,9 +14,18 @@
 
   export default {
     data () {
-      return {}
+      return {
+        panelTodoText: this.todoText
+      }
     },
-    components: { InputBar }
+    components: { InputBar },
+    props: ['addTodo', 'todoText'],
+    methods: {
+      updateValue(value) {
+        this.panelTodoText = value
+        this.$emit('todoText', this.panelTodoText);
+      }
+    }
   }
 </script>
 

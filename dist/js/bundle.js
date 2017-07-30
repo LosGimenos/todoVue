@@ -10485,7 +10485,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\n* {\n  margin: 0 0;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/app.vue?573c93ad"],"names":[],"mappings":";AAuBA;EACA,YAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div>\n    <title-bar></title-bar>\n    <input-panel></input-panel>\n  </div>\n</template>\n\n<script>\n  import TitleBar from './titleBar.vue';\n  import InputPanel from './inputPanel.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: {\n      TitleBar,\n      InputPanel\n    }\n  }\n</script>\n\n<style>\n  * {\n    margin: 0 0;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n* {\n  margin: 0 0;\n}\n.main-content__wrapper {\n  display: flex;\n  justify-content: space-around;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/app.vue?0b8837d6"],"names":[],"mappings":";AA4DA;EACA,YAAA;CACA;AACA;EACA,cAAA;EACA,8BAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div>\n    <title-bar></title-bar>\n    <div class=\"main-content__wrapper\">\n      <input-panel\n        v-bind:todoText=\"todoText\"\n        v-on:todoText=\"value => todoText = value\"\n        v-bind:addTodo=\"addTodo\">\n      </input-panel>\n      <todos-panel\n        v-bind:todos=\"todos\">\n      </todos-panel>\n    </div>\n  </div>\n</template>\n\n<script>\n  import TitleBar from './titleBar.vue';\n  import InputPanel from './inputPanel.vue';\n  import TodosPanel from './todosPanel.vue';\n\n  export default {\n    data () {\n      return {\n        todoText: '',\n        todos: [\n          {\n            copy: 'Grab a burger',\n            completed: false,\n            isEditing: false\n          },\n          {\n            copy: 'Frolic in forest',\n            completed: false,\n            isEditing: false\n          }\n        ]\n      }\n    },\n    components: {\n      TitleBar,\n      InputPanel,\n      TodosPanel\n    },\n    methods: {\n      addTodo() {\n        const todoText = this.todoText.trim();\n        if (todoText) {\n          this.todos.push({\n            copy: todoText,\n            completed: false,\n            isEditing: false\n          });\n        }\n      }\n    }\n  }\n</script>\n\n<style>\n  * {\n    margin: 0 0;\n  }\n  .main-content__wrapper {\n    display: flex;\n    justify-content: space-around;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -10930,6 +10930,7 @@ module.exports = function normalizeComponent (
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__titleBar_vue__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inputPanel_vue__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__todosPanel_vue__ = __webpack_require__(39);
 //
 //
 //
@@ -10937,17 +10938,51 @@ module.exports = function normalizeComponent (
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data() {
-    return {};
+    return {
+      todoText: '',
+      todos: [{
+        copy: 'Grab a burger',
+        completed: false,
+        isEditing: false
+      }, {
+        copy: 'Frolic in forest',
+        completed: false,
+        isEditing: false
+      }]
+    };
   },
   components: {
     TitleBar: __WEBPACK_IMPORTED_MODULE_0__titleBar_vue__["a" /* default */],
-    InputPanel: __WEBPACK_IMPORTED_MODULE_1__inputPanel_vue__["a" /* default */]
+    InputPanel: __WEBPACK_IMPORTED_MODULE_1__inputPanel_vue__["a" /* default */],
+    TodosPanel: __WEBPACK_IMPORTED_MODULE_2__todosPanel_vue__["a" /* default */]
+  },
+  methods: {
+    addTodo() {
+      const todoText = this.todoText.trim();
+      if (todoText) {
+        this.todos.push({
+          copy: todoText,
+          completed: false,
+          isEditing: false
+        });
+      }
+    }
   }
 });
 
@@ -10957,7 +10992,21 @@ module.exports = function normalizeComponent (
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('title-bar'), _vm._v(" "), _c('input-panel')], 1)
+  return _c('div', [_c('title-bar'), _vm._v(" "), _c('div', {
+    staticClass: "main-content__wrapper"
+  }, [_c('input-panel', {
+    attrs: {
+      "todoText": _vm.todoText,
+      "addTodo": _vm.addTodo
+    },
+    on: {
+      "todoText": function (value) { return _vm.todoText = value; }
+    }
+  }), _vm._v(" "), _c('todos-panel', {
+    attrs: {
+      "todos": _vm.todos
+    }
+  })], 1)], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11174,10 +11223,21 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data() {
     return {};
+  },
+  props: ['addTodo', 'todoText'],
+  methods: {
+    updateValue() {
+      this.$emit('todoText', this.$refs.input.value);
+    }
   }
 });
 
@@ -11270,7 +11330,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #000;\n  width: 40%;\n  height: 10em;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputPanel.vue?31c28f82"],"names":[],"mappings":";AAmBA;EACA,cAAA;EACA,uBAAA;EACA,wBAAA;EACA,oBAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"inputPanel.vue","sourcesContent":["<template>\n  <div class=\"input-panel\">\n    <h2>Enter the task!</h2>\n    <input-bar></input-bar>\n  </div>\n</template>\n\n<script>\n  import InputBar from './inputBar.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { InputBar }\n  }\n</script>\n\n<style scoped>\n  .input-panel {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid #000;\n    width: 40%;\n    height: 10em;\n  }\n</style>\n\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #000;\n  width: 40%;\n  height: 10em;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputPanel.vue?1d094499"],"names":[],"mappings":";AAgCA;EACA,cAAA;EACA,uBAAA;EACA,wBAAA;EACA,oBAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"inputPanel.vue","sourcesContent":["<template>\n  <div class=\"input-panel\">\n    <h2>Enter the task!</h2>\n    <input-bar\n      v-bind:todoText=\"panelTodoText\"\n      v-on:todoText=\"value => updateValue(value)\"\n      v-bind:addTodo=\"addTodo\">\n    </input-bar>\n  </div>\n</template>\n\n<script>\n  import InputBar from './inputBar.vue';\n\n  export default {\n    data () {\n      return {\n        panelTodoText: this.todoText\n      }\n    },\n    components: { InputBar },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue(value) {\n        this.panelTodoText = value\n        this.$emit('todoText', this.panelTodoText);\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  .input-panel {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid #000;\n    width: 40%;\n    height: 10em;\n  }\n</style>\n\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11288,14 +11348,27 @@ exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data() {
-    return {};
+    return {
+      panelTodoText: this.todoText
+    };
   },
-  components: { InputBar: __WEBPACK_IMPORTED_MODULE_0__inputBar_vue__["a" /* default */] }
+  components: { InputBar: __WEBPACK_IMPORTED_MODULE_0__inputBar_vue__["a" /* default */] },
+  props: ['addTodo', 'todoText'],
+  methods: {
+    updateValue(value) {
+      this.panelTodoText = value;
+      this.$emit('todoText', this.panelTodoText);
+    }
+  }
 });
 
 /***/ }),
@@ -11306,7 +11379,15 @@ exports.push([module.i, "\n.input-panel[data-v-2b5c078c] {\n  display: flex;\n  
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "input-panel"
-  }, [_c('h2', [_vm._v("Enter the task!")]), _vm._v(" "), _c('input-bar')], 1)
+  }, [_c('h2', [_vm._v("Enter the task!")]), _vm._v(" "), _c('input-bar', {
+    attrs: {
+      "todoText": _vm.panelTodoText,
+      "addTodo": _vm.addTodo
+    },
+    on: {
+      "todoText": function (value) { return _vm.updateValue(value); }
+    }
+  })], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11354,7 +11435,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2em;\n  font-size: 1.25em;\n  margin-top: 2%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputBar.vue?0d8820b2"],"names":[],"mappings":";AAaA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;CACA","file":"inputBar.vue","sourcesContent":["<template>\n  <input placeholder=\"What do you need to do?\" />\n</template>\n\n<script>\n  export default {\n    data () {\n      return {}\n    }\n  }\n</script>\n\n<style scoped>\n  input {\n    width: 60%;\n    height: 2em;\n    font-size: 1.25em;\n    margin-top: 2%;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2em;\n  font-size: 1.25em;\n  margin-top: 2%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/inputBar.vue?3f8807ea"],"names":[],"mappings":";AAwBA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;CACA","file":"inputBar.vue","sourcesContent":["<template>\n  <input\n    ref=\"input\"\n    v-bind:todoText=\"todoText\"\n    @input=\"updateValue\"\n    v-on:keyup.enter=\"addTodo\"\n    placeholder=\"What do you need to do?\" />\n</template>\n\n<script>\n  export default {\n    data () {\n      return {}\n    },\n    props: ['addTodo', 'todoText'],\n    methods: {\n      updateValue() {\n        this.$emit('todoText', this.$refs.input.value)\n      }\n    }\n  }\n</script>\n\n<style scoped>\n  input {\n    width: 60%;\n    height: 2em;\n    font-size: 1.25em;\n    margin-top: 2%;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -11366,8 +11447,17 @@ exports.push([module.i, "\ninput[data-v-037353ca] {\n  width: 60%;\n  height: 2e
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('input', {
+    ref: "input",
     attrs: {
+      "todoText": _vm.todoText,
       "placeholder": "What do you need to do?"
+    },
+    on: {
+      "input": _vm.updateValue,
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.addTodo($event)
+      }
     }
   })
 }
@@ -11379,6 +11469,460 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-037353ca", esExports)
+  }
+}
+
+/***/ }),
+/* 39 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todosPanel_vue__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_006d55c9_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todosPanel_vue__ = __webpack_require__(43);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(40)
+}
+var normalizeComponent = __webpack_require__(10)
+/* script */
+
+/* template */
+
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-006d55c9"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todosPanel_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_006d55c9_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todosPanel_vue__["a" /* default */],
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "client/components/todosPanel.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] todosPanel.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-006d55c9", Component.options)
+  } else {
+    hotAPI.reload("data-v-006d55c9", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(41);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(8)("7e11f943", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-006d55c9\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todosPanel.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-006d55c9\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todosPanel.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.todos-panel[data-v-006d55c9] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: flex-start;\n  border: 1px solid #000;\n  width: 50%;\n  height: 80vh;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosPanel.vue?09a614de"],"names":[],"mappings":";AAsBA;EACA,cAAA;EACA,uBAAA;EACA,oBAAA;EACA,4BAAA;EACA,uBAAA;EACA,WAAA;EACA,aAAA;CACA","file":"todosPanel.vue","sourcesContent":["<template>\n  <div class=\"todos-panel\">\n    <h2>Your Tasks!</h2>\n    <todos-list\n      v-bind:todos=\"todos\">\n    </todos-list>\n  </div>\n</template>\n\n<script>\n  import TodosList from './todosList.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodosList },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  .todos-panel {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-start;\n    border: 1px solid #000;\n    width: 50%;\n    height: 80vh;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__todosList_vue__ = __webpack_require__(44);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data() {
+    return {};
+  },
+  components: { TodosList: __WEBPACK_IMPORTED_MODULE_0__todosList_vue__["a" /* default */] },
+  props: ['todos']
+});
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "todos-panel"
+  }, [_c('h2', [_vm._v("Your Tasks!")]), _vm._v(" "), _c('todos-list', {
+    attrs: {
+      "todos": _vm.todos
+    }
+  })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-006d55c9", esExports)
+  }
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todosList_vue__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f6e3e12e_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todosList_vue__ = __webpack_require__(48);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(45)
+}
+var normalizeComponent = __webpack_require__(10)
+/* script */
+
+/* template */
+
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-f6e3e12e"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todosList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f6e3e12e_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todosList_vue__["a" /* default */],
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "client/components/todosList.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] todosList.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f6e3e12e", Component.options)
+  } else {
+    hotAPI.reload("data-v-f6e3e12e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(46);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(8)("4b41b3e8", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6e3e12e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todosList.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6e3e12e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todosList.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\nul[data-v-f6e3e12e] {\n  list-style: none;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todosList.vue?4b179996"],"names":[],"mappings":";AAsBA;EACA,iBAAA;CACA","file":"todosList.vue","sourcesContent":["<template>\n  <ul>\n    <todo-item\n      v-for=\"todo in todos\"\n      v-bind:todo=\"todo\">\n    </todo-item>\n  </ul>\n</template>\n\n<script>\n  import TodoItem from './todoItem.vue';\n\n  export default {\n    data () {\n      return {}\n    },\n    components: { TodoItem },\n    props: ['todos']\n  }\n</script>\n\n<style scoped>\n  ul {\n    list-style: none;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__todoItem_vue__ = __webpack_require__(49);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data() {
+    return {};
+  },
+  components: { TodoItem: __WEBPACK_IMPORTED_MODULE_0__todoItem_vue__["a" /* default */] },
+  props: ['todos']
+});
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', _vm._l((_vm.todos), function(todo) {
+    return _c('todo-item', {
+      attrs: {
+        "todo": todo
+      }
+    })
+  }))
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-f6e3e12e", esExports)
+  }
+}
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todoItem_vue__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_39199aaa_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todoItem_vue__ = __webpack_require__(53);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(50)
+}
+var normalizeComponent = __webpack_require__(10)
+/* script */
+
+/* template */
+
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-39199aaa"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todoItem_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_39199aaa_hasScoped_true_node_modules_vue_loader_lib_selector_type_template_index_0_todoItem_vue__["a" /* default */],
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "client/components/todoItem.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] todoItem.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-39199aaa", Component.options)
+  } else {
+    hotAPI.reload("data-v-39199aaa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(51);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(8)("1d30ffa2", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-39199aaa\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todoItem.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-39199aaa\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./todoItem.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\nli[data-v-39199aaa] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 1px solid #000;\n  width: 20em;\n  height: 2em;\n  margin-bottom: 2%;\n  padding: 0 1%;\n}\n", "", {"version":3,"sources":["/Users/retraido/sandbox/todoVue/client/components/todoItem.vue?2a82d9d2"],"names":[],"mappings":";AAoBA;EACA,cAAA;EACA,+BAAA;EACA,oBAAA;EACA,uBAAA;EACA,YAAA;EACA,YAAA;EACA,kBAAA;EACA,cAAA;CACA","file":"todoItem.vue","sourcesContent":["<template>\n  <li>\n    <p>{{ todo.copy }}</p>\n    <input\n      type=\"checkbox\"\n      v-model=\"todo.completed\"\n      />\n  </li>\n</template>\n\n<script>\n  export default {\n    data () {\n      return {}\n    },\n    props: ['todo']\n  }\n</script>\n\n<style scoped>\n  li {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: 1px solid #000;\n    width: 20em;\n    height: 2em;\n    margin-bottom: 2%;\n    padding: 0 1%;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data() {
+    return {};
+  },
+  props: ['todo']
+});
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('p', [_vm._v(_vm._s(_vm.todo.copy))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.todo.completed),
+      expression: "todo.completed"
+    }],
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.todo.completed) ? _vm._i(_vm.todo.completed, null) > -1 : (_vm.todo.completed)
+    },
+    on: {
+      "__c": function($event) {
+        var $$a = _vm.todo.completed,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.todo.completed = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.todo.completed = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.todo.completed = $$c
+        }
+      }
+    }
+  })])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-39199aaa", esExports)
   }
 }
 
